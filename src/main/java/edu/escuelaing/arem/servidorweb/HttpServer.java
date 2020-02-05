@@ -12,7 +12,6 @@ import java.net.Socket;
 public class HttpServer {
     public static void main(String[] args) throws IOException {
 
-
         ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(getPort());
@@ -34,34 +33,36 @@ public class HttpServer {
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             String inputLine, outputLine;
 
-            int cont = 0;
-            String[] resource = new String[3];
+            String resource = "/";
+
 
             while ((inputLine = in.readLine()) != null) {
-                if (cont == 0) {
-                    resource = inputLine.split(" ");
-                    cont++;
+                if (inputLine.matches("(GET)+.*")) {
+                    resource = inputLine.split(" ")[1];
                 }
                 System.out.println(inputLine);
                 if (!in.ready()) {
                     break;
                 }
             }
-            if (!resource[1].equals("/favicon.ico") && !resource[1].equals("/")) {
-                outputLine = readFile(resource[1]) + inputLine;
-                out.println(outputLine);
-            }else{
-                outputLine = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html\r\n" + "\r\n" + "<!DOCTYPE html>\n"
-                + "<html>\n" + "<head>\n" + "<meta charset=\"UTF-8\">\n" + "<title>Title of the document</title>\n"
-                + "</head>\n" + "<body>\n" + "<h1>Página de inicio</h1>\n" + "</body>\n" + "</html>\n" + inputLine;
-                out.println(outputLine);
+            System.out.println(resource);
+            if (!resource.equals("/favicon.ico")) {
+                if(!resource.equals("/")){
+                    outputLine = readFile(resource) + inputLine;
+                    out.println(outputLine);
+                }else{
+                    outputLine = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html\r\n" + "\r\n" + "<!DOCTYPE html>\n"
+                    + "<html>\n" + "<head>\n" + "<meta charset=\"UTF-8\">\n" + "<title>Title of the document</title>\n"
+                    + "</head>\n" + "<body>\n" + "<h1>Página de inicio</h1>\n" + "</body>\n" + "</html>\n" + inputLine;
+                    out.println(outputLine);
+                }
             }
 
            
             out.close();
             in.close();
             clientSocket.close();
-            serverSocket.close();
+            
         }
     }
 
@@ -82,7 +83,7 @@ public class HttpServer {
         String a = "<!DOCTYPE html>" + "<html lang='en'>" + "<head>" + "<meta charset='UTF-8'>"
                 + "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
                 + "<meta http-equiv='X-UA-Compatible' content='ie=edge'>" + "<title>Image</title>" + "</head>"
-                + "<body>" + "<img resources" + resource + "/>" + "</body>" + "</html>";
+                + "<body>" + "<img src=/src/main/resources" + resource + "/>" + "</body>" + "</html>";
 
         return a;
     }
