@@ -11,20 +11,34 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 
 public class HttpServer {
-    public static void main(String[] args) throws IOException {
 
-        ServerSocket serverSocket = null;
+    private static ServerSocket serverSocket;
+    private static Socket clientSocket;
+    private static PrintWriter out;
+    private static BufferedReader in;
+
+    public static void main(String[] args) throws IOException {
+        doConect();
+        listen();
+    }
+
+    private static void doConect() {
+
+        serverSocket = null;
         try {
             serverSocket = new ServerSocket(getPort());
         } catch (IOException e) {
             System.err.println("Could not listen on port: 35000.");
             System.exit(1);
         }
+    }
 
+    private static void listen() throws IOException {
         while (true) {
-            Socket clientSocket = null;
+            clientSocket = null;
             try {
                 System.out.println("Listo para recibir ...");
                 clientSocket = serverSocket.accept();
@@ -32,12 +46,12 @@ public class HttpServer {
                 System.err.println("Accept failed.");
                 System.exit(1);
             }
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
             String inputLine, outputLine;
 
             String resource = "/";
-
 
             while ((inputLine = in.readLine()) != null) {
                 if (inputLine.matches("(GET)+.*")) {
@@ -48,10 +62,23 @@ public class HttpServer {
                     break;
                 }
             }
-            System.out.println(resource);
+
             if (!resource.equals("/favicon.ico")) {
-                if(!resource.equals("/")){
-                    readFile(out, clientSocket.getOutputStream() ,resource);
+                if (!resource.equals("/")) {
+                    if (resource.equals("/DataBase")) {
+                        try {
+                            DataBase db = new DataBase();
+                            outputLine = db.returnHtml();
+                            out.println(outputLine);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        
+                    }else{
+                        readFile(out, clientSocket.getOutputStream() ,resource);
+                    }
+                    
+                    
                 }else{
                     outputLine = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html\r\n" + "\r\n" + "<!DOCTYPE html>\n"
                     + "<html>\n" + "<head>\n" + "<meta charset=\"UTF-8\">\n" + "<title>Title of the document</title>\n"
@@ -70,7 +97,7 @@ public class HttpServer {
 
     private static void readFile(PrintWriter out, OutputStream ost ,String resource) throws IOException {
 
-        if (resource.contains(".PNG")) {
+        if (resource.contains(".jpg")) {
             readImage(out, ost, resource);
         } else {
             getFile(out, resource);
