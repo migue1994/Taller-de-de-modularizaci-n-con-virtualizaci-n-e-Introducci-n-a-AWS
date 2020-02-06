@@ -1,10 +1,13 @@
 package edu.escuelaing.arem.servidorweb;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -48,12 +51,11 @@ public class HttpServer {
             System.out.println(resource);
             if (!resource.equals("/favicon.ico")) {
                 if(!resource.equals("/")){
-                    outputLine = readFile(resource) + inputLine;
-                    out.println(outputLine);
+                    readFile(out, clientSocket.getOutputStream() ,resource);
                 }else{
                     outputLine = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html\r\n" + "\r\n" + "<!DOCTYPE html>\n"
                     + "<html>\n" + "<head>\n" + "<meta charset=\"UTF-8\">\n" + "<title>Title of the document</title>\n"
-                    + "</head>\n" + "<body>\n" + "<h1>Página de inicio</h1>\n" + "</body>\n" + "</html>\n" + inputLine;
+                    + "</head>\n" + "<body>\n" + "<h1>Pagina principal</h1>" + "</body>\n" + "</html>\n" + inputLine;
                     out.println(outputLine);
                 }
             }
@@ -66,32 +68,20 @@ public class HttpServer {
         }
     }
 
-    private static String readFile(String resource) throws IOException {
-        String st = "";
-        st = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html\r\n" + "\r\n";
+    private static void readFile(PrintWriter out, OutputStream ost ,String resource) throws IOException {
 
-        if (resource.contains(".PNG") || resource.contains(".jpg") || resource.contains(".jpeg")) {
-            st += getImagen(resource);
+        if (resource.contains(".PNG")) {
+            readImage(out, ost, resource);
         } else {
-            st += getFile(resource);
+            getFile(out, resource);
         }
 
-        return st;
     }
 
-    public static String getImagen(String resource) {
-        String a = "<!DOCTYPE html>" + "<html lang='en'>" + "<head>" + "<meta charset='UTF-8'>"
-                + "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
-                + "<meta http-equiv='X-UA-Compatible' content='ie=edge'>" + "<title>Image</title>" + "</head>"
-                + "<body>" + "<img src=/src/main/resources" + resource + "/>" + "</body>" + "</html>";
-
-        return a;
-    }
-
-    public static String getFile(String resource) throws IOException {
+    public static void getFile(PrintWriter out, String resource) throws IOException { 
         String st;
-        String res = "";
-        File file = new File("resources" + resource);
+        String res = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html\r\n" + "\r\n";
+        File file = new File("src/main/resources" + resource);
         BufferedReader br = new BufferedReader(new FileReader(file));
 
         while ((st = br.readLine()) != null){
@@ -100,7 +90,24 @@ public class HttpServer {
 
         br.close();
 
-        return res;
+        out.println(res);
+    }
+
+    private static void readImage(PrintWriter out, OutputStream outStream, String request) throws IOException {
+        File graphicResource= new File("src/main/resources" +request);
+        FileInputStream inputImage = new FileInputStream(graphicResource);
+        byte[] bytes = new byte[(int) graphicResource.length()];
+        inputImage.read(bytes);
+
+        DataOutputStream binaryOut;
+        binaryOut = new DataOutputStream(outStream);
+        binaryOut.writeBytes("HTTP/1.1 200 OK \r\n");
+        binaryOut.writeBytes("Content-Type: image/png\r\n");
+        binaryOut.writeBytes("Content-Length: " + bytes.length);
+        binaryOut.writeBytes("\r\n\r\n");
+        binaryOut.write(bytes);
+        binaryOut.close();
+        inputImage.close();
     }
 
     static int getPort() {
