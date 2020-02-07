@@ -20,11 +20,27 @@ Para empezar, debemos asegurarnos que tenemos las herramientas necesarias para p
 
 # Ejecutar el proyecto
 
-Una vez que hayamos descargado el proyecto, abrimos una cmd y accedemos al directorio donde esta el proyecto, una vez allí, ejecutamos el siguiente comando:
+Una vez que hayamos descargado el proyecto, abrimos una cmd y accedemos al directorio donde esta el proyecto, para ejecutar las partes del proyecto.
 
-``$ mvn exec:java -Dexec.mainClass="edu.escuelaing.arem.servidorweb.HttpServer"``
+El proyecto consta de varios ejercicios, los cuales se deberán ejecutar por separado, acontinuación, se mostrará como ejecutar cada uno de ellos.
 
-Una vez se haya ejecutado el comando, se compilará el proyecto y nos aparecerá una pantalla que dice que el servidor esta listo para recibir una petición desde el navegador.
+1. Ejercicio 1
+    - ``$ mvn exec:java -Dexec.mainClass="edu.escuelaing.arem.url.UrlPuntoUno"``
+
+2. Ejercicio 2. 
+
+    - ``$ mvn exec:java -Dexec.mainClass="edu.escuelaing.arem.url.UrlPuntoDos"``
+
+3. Ejercicio 3.
+
+    - ``$ mvn exec:java -Dexec.mainClass="edu.escuelaing.arem.Socket.EchoClient"`` -> Para ejecutar cliente
+    - ``$ mvn exec:java -Dexec.mainClass="edu.escuelaing.arem.Socket.EchoServer"`` -> Para ejecutar el servidor
+
+4. Reto 1 y 2
+
+    - ``$ mvn exec:java -Dexec.mainClass="edu.escuelaing.arem.servidorweb.HttpServer"``
+
+    Una vez se haya ejecutado el comando, se compilará el proyecto y nos aparecerá una pantalla que dice que el servidor esta listo para recibir una petición desde el navegador.
 
 
 # Herramientas usadas
@@ -47,7 +63,7 @@ Una vez se haya ejecutado el comando, se compilará el proyecto y nos aparecerá
 
 La documentación de este proyecto, podrá encontrarla en la siguiente dirección:
 
-``target\site\apidocs\edu\escuelaing\arem\designprimer``
+``target\site\apidocs\edu\escuelaing\arem``
 
 Si desea generar la documentación nuevamente, solo deberá escribir el siguiente comando desde la consola cmd:
 
@@ -58,3 +74,7 @@ Esto le generará una documentación, que se ubica por defecto en `target\site\a
 # Link de Heroku
 
 [Cliente-servidor](https://cliente-servicio.herokuapp.com/)
+
+# CircleCi badge
+
+[![CircleCI](https://circleci.com/gh/migue1994/Taller-cliente-servicio-arep.svg?style=svg)](https://circleci.com/gh/migue1994/Taller-cliente-servicio-arep)
