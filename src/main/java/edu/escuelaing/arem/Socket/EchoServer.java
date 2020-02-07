@@ -7,7 +7,15 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * Servidor que atiende las peticiones del cliente
+ */
 public class EchoServer {
+    /**
+     * Método principal
+     * @param args argumentos
+     * @throws IOException IO Exception
+     */
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = null;
             try {

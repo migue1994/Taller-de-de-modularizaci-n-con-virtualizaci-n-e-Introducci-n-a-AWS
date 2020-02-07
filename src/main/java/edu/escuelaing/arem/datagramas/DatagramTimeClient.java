@@ -11,10 +11,16 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Clase que realiza las peticiones del cliente por medio de datagramas
+ */
 public class DatagramTimeClient extends Thread {
 
     private static String received;
-
+    /**
+     * Calse principal
+     * @param args argumentos
+     */
     public static void main(String[] args) {
         while (true) {
             ExecutorService pool = Executors.newSingleThreadExecutor();

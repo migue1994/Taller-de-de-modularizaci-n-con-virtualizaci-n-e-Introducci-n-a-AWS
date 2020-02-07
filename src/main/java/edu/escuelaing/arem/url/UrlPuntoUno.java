@@ -5,7 +5,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+/**
+ * Clase correspondiente al punto 1 de los ejercicios
+ */
 public class UrlPuntoUno{
+    /**
+     * Método principal
+     * @param args argumentos
+     * @throws Exception Exception
+     */
     public static void main(String args[]) throws Exception{
         URL google = new URL("http://www.google.com/");
         

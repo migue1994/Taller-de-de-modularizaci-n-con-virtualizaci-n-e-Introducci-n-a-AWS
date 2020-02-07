@@ -6,9 +6,17 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.io.*;
 
+/**
+ * Clase correspondiente al punto 2 de los ejercicios propuestos
+ */
 public class UrlPuntoDos extends Exception	{
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Método principal
+     * @param args argumentos
+     * @throws IOException IO Exception
+     */
     public static void main(String args[]) throws IOException {
 
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in)); 
@@ -30,6 +38,11 @@ public class UrlPuntoDos extends Exception	{
          
     }
 
+    /**
+     * Método que se encarga de escribir el archivo de la pagina web
+     * @param data Entrada url que se captura en consola
+     * @throws IOException IO Exception
+     */
     public static void whenAppendStringUsingBufferedWritter_thenOldContentShouldExistToo(String data) 
     throws IOException {
       BufferedWriter writer = new BufferedWriter(new FileWriter("prueba2.html", true));

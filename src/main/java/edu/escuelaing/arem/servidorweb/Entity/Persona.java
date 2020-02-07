@@ -1,5 +1,8 @@
 package edu.escuelaing.arem.servidorweb.Entity;
 
+/**
+ * Entidad Persona que está en la base de datos
+ */
 public class Persona {
 
     private String nombres;

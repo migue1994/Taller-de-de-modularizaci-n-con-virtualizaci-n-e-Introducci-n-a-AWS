@@ -9,10 +9,16 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Se encarga de correr el servidor que recibe los datagramas
+ */
 public class DatagramTimeServer {
 
     DatagramSocket socket;
 
+    /**
+     * Constructor
+     */
     public DatagramTimeServer() {
         try {
             socket = new DatagramSocket(4445);
@@ -21,6 +27,9 @@ public class DatagramTimeServer {
         }
     }
     
+    /**
+     * Ejecuta el servidor y crea el espacio para recibir el datagrama
+     */
     public void startServer() {
         byte[] buf = new byte[256];
         try {
@@ -40,6 +49,10 @@ public class DatagramTimeServer {
         socket.close();
     }
 
+    /**
+     * Método principal
+     * @param args argumentos
+     */
     public static void main(String[] args){
         while(true){
             DatagramTimeServer ds = new DatagramTimeServer();

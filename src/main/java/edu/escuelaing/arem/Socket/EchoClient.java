@@ -7,7 +7,16 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * Cliente que se encarga de enviar peticiones al servidor
+ */
 public class EchoClient {
+
+    /**
+     * Método principal
+     * @param args argumentos
+     * @throws IOException IO Exception
+     */
     public static void main(String[] args) throws IOException {
      Socket echoSocket = null;
      PrintWriter out = null;

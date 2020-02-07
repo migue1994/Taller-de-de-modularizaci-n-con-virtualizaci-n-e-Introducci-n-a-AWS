@@ -20,11 +20,18 @@ public class HttpServer {
     private static PrintWriter out;
     private static BufferedReader in;
 
+    /**
+     * Clase principal de la base del servidor web
+     * @param args argumentos
+     * @throws IOException Io exception
+     */
     public static void main(String[] args) throws IOException {
         doConect();
         listen();
     }
-
+    /**
+     * Realiza la conexión a la base de datos
+     */
     private static void doConect() {
 
         serverSocket = null;
@@ -35,7 +42,10 @@ public class HttpServer {
             System.exit(1);
         }
     }
-
+    /**
+     * Se encarga de recibir las peticiones que son hechas por el navegador
+     * @throws IOException
+     */
     private static void listen() throws IOException {
         while (true) {
             clientSocket = null;
@@ -82,7 +92,7 @@ public class HttpServer {
                 }else{
                     outputLine = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html\r\n" + "\r\n" + "<!DOCTYPE html>\n"
                     + "<html>\n" + "<head>\n" + "<meta charset=\"UTF-8\">\n" + "<title>Title of the document</title>\n"
-                    + "</head>\n" + "<body>\n" + "<h1>Pagina principal</h1>" + "</body>\n" + "</html>\n" + inputLine;
+                    + "</head>\n" + "<body>\n" + "<h1 style=\"text-align: center;\">Pagina principal</h1>" + "</body>\n" + "</html>\n" + inputLine;
                     out.println(outputLine);
                 }
             }
@@ -94,7 +104,13 @@ public class HttpServer {
             
         }
     }
-
+    /**
+     * Permite leer el reurso solocitado al servidor, dependiendo del tipo de extensión
+     * @param out Permite mostrar el contenido en el navegador
+     * @param ost Canal que permite el flujo de datos hacia el servidor
+     * @param resource Recurso solicitado del navegador
+     * @throws IOException
+     */
     private static void readFile(PrintWriter out, OutputStream ost ,String resource) throws IOException {
 
         if (resource.contains(".jpg")) {
@@ -105,6 +121,12 @@ public class HttpServer {
 
     }
 
+    /**
+     * 
+     * @param out Permite mostrar el contenido en el navegador
+     * @param resource Recurso solicitado del navegador
+     * @throws IOException Io exception
+     */
     public static void getFile(PrintWriter out, String resource) throws IOException { 
         String st;
         String res = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html\r\n" + "\r\n";
@@ -120,6 +142,13 @@ public class HttpServer {
         out.println(res);
     }
 
+    /**
+     * 
+     * @param out Permite mostrar el contenido en el navegador
+     * @param outStream Canal que permite el flujo de datos hacia el servidor
+     * @param request Recurso solicitado del navegador
+     * @throws IOException
+     */
     private static void readImage(PrintWriter out, OutputStream outStream, String request) throws IOException {
         File graphicResource= new File("src/main/resources" +request);
         FileInputStream inputImage = new FileInputStream(graphicResource);
@@ -137,6 +166,10 @@ public class HttpServer {
         inputImage.close();
     }
 
+    /**
+     * Permite leer el puerto, para poder desplegar la aplicación en heroku
+     * @return Puerto de salida
+     */
     static int getPort() {
         if (System.getenv("PORT") != null) {
             return Integer.parseInt(System.getenv("PORT"));
