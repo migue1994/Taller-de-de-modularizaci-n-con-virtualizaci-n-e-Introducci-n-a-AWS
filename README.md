@@ -42,6 +42,9 @@ El proyecto consta de varios ejercicios, los cuales se deberán ejecutar por sep
 
     Una vez se haya ejecutado el comando, se compilará el proyecto y nos aparecerá una pantalla que dice que el servidor esta listo para recibir una petición desde el navegador.
 
+    Los documentos que se encuentran disponibles son: Example1.html, paisaje1.jpg, paisaje2.jpg
+    y javascript index. Para poder abrir los archivos desde la aplicaión, basta con colocar el nombre de los archivos antes mencionados en la barra url del navegador.
+
 
 # Herramientas usadas
 
