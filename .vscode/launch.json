@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - HttpServer",
+            "request": "launch",
+            "mainClass": "edu.escuelaing.arem.servidorweb.HttpServer",
+            "projectName": "NamesNetworkClientService"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - HttpServerMain",
+            "request": "launch",
+            "mainClass": "edu.escuelaing.arem.servidorweb.HttpServerMain",
+            "projectName": "NamesNetworkClientService"
+        }
+    ]
+}
