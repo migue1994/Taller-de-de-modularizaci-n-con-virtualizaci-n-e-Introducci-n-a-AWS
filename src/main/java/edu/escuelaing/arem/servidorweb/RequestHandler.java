@@ -21,12 +21,15 @@ public class RequestHandler extends Thread{
 
     @Override
     public void run(){
+        long startTime = System.currentTimeMillis();
         try {
             attendRequest();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        long endTime = System.currentTimeMillis() - startTime;
+        System.out.println(endTime);
     }
 
     public void attendRequest() throws IOException {
