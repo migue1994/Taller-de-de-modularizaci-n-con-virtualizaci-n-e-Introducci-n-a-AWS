@@ -1,5 +1,8 @@
 package edu.escuelaing.arem.servidorweb;
 
+import edu.escuelaing.arem.servidorweb.ServerThread.RequestHandler;
+import edu.escuelaing.arem.servidorweb.load.LoadAll;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,6 +14,7 @@ public class HttpServer{
     private static ServerSocket serverSocket;
     private static Socket clientSocket;
     private static int numThread = 10;
+    private static LoadAll la;
 
     private static ExecutorService pool = Executors.newFixedThreadPool(numThread);
 
@@ -20,6 +24,8 @@ public class HttpServer{
      * @throws IOException Io exception
      */
     public static void main(String[] args) throws IOException {
+        la = new LoadAll();
+        la.start();
         doConect();
         listen();
     }
@@ -46,7 +52,7 @@ public class HttpServer{
             try {
                 System.out.println("Listo para recibir ...");
                 clientSocket = serverSocket.accept();
-                RequestHandler rh = new RequestHandler(clientSocket);
+                RequestHandler rh = new RequestHandler(clientSocket, la);
                 pool.execute(rh);
 
             } catch (IOException e) {

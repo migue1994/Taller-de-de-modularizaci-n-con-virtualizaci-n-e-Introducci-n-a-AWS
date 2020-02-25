@@ -1,4 +1,7 @@
-package edu.escuelaing.arem.servidorweb;
+package edu.escuelaing.arem.servidorweb.ServerThread;
+
+import edu.escuelaing.arem.servidorweb.DataBase.DataBase;
+import edu.escuelaing.arem.servidorweb.load.LoadAll;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -13,10 +16,17 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class RequestHandler extends Thread{
+    private LoadAll la;
     Socket cc;
 
-    public RequestHandler(Socket cc){
+    /**
+     * Constructor of the class Request Handler
+     * @param cc The client socket
+     * @param la Class that load all resources
+     */
+    public RequestHandler(Socket cc, LoadAll la){
         this.cc = cc;
+        this.la = la;
     }
 
     @Override
@@ -32,6 +42,10 @@ public class RequestHandler extends Thread{
         System.out.println(endTime);
     }
 
+    /**
+     * Attend the request of the customer
+     * @throws IOException throws IOException
+     */
     public void attendRequest() throws IOException {
         PrintWriter out = new PrintWriter(cc.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(cc.getInputStream()));
@@ -60,12 +74,13 @@ public class RequestHandler extends Thread{
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                    
+                }
+                else if(la.isAResource(resource)){
+                    out.println("HTTP/1.1 200 \r\nAccess-Control-Allow-Origin: *\r\nContent-Type: text/html\r\n\r\n");
+                    out.println(la.loadResource(resource));
                 }else{
                     readFile(out, cc.getOutputStream() ,resource);
                 }
-                
-                
             }else{
                 outputLine = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html\r\n" + "\r\n" + "<!DOCTYPE html>\n"
                 + "<html>\n" + "<head>\n" + "<meta charset=\"UTF-8\">\n" + "<title>Title of the document</title>\n"
@@ -73,13 +88,18 @@ public class RequestHandler extends Thread{
                 out.println(outputLine);
             }
         }
-
-       
         out.close();
         in.close();
         cc.close();
     }
 
+    /**
+     * Reads the file depending on the extension of the file
+     * @param out Printwriter that prints the html code in the browser
+     * @param ost Output stream
+     * @param resource Resource to be load
+     * @throws IOException
+     */
     private static void readFile(PrintWriter out, OutputStream ost ,String resource) throws IOException {
 
         if (resource.contains(".jpg")) {

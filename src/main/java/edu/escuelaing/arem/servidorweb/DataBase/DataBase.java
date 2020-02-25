@@ -1,4 +1,4 @@
-package edu.escuelaing.arem.servidorweb;
+package edu.escuelaing.arem.servidorweb.DataBase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
