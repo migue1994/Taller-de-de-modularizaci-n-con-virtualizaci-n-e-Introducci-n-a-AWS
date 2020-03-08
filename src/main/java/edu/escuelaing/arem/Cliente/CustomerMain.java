@@ -13,6 +13,11 @@ public class CustomerMain {
     public static List<CustomerThread> threads = new ArrayList();
     public static String[] urls = new String[]{"Example1.html", "index.html", "JsExample.js", "paisaje1.jpg", "paisaje2.jpg"};
 
+    /**
+     * Main class that executes the client
+     * @param args no args
+     * @throws Exception Exception
+     */
     public static void main(String[] args) throws Exception {
         int numClients = readNumberOfClients();
         String urlBase = "https://modularizacion-virtualizacion.herokuapp.com/";
@@ -20,6 +25,12 @@ public class CustomerMain {
 
     }
 
+    /**
+     * Create the threads depending on what the user wants
+     * @param numClients Number of the concurrent clients
+     * @param clients number of web pages in the server
+     * @param urlBase the main url on heroku
+     */
     private static void createThreads(int numClients, int clients, String urlBase) {
         ExecutorService executor = Executors.newFixedThreadPool(10);
         Random rand = new Random();
@@ -38,6 +49,11 @@ public class CustomerMain {
         });
     }
 
+    /**
+     * Lets you read the number of customers the user wants
+     * @return The number of clients
+     * @throws IOException IOException
+     */
     private static int readNumberOfClients() throws IOException {
         System.out.println("How many clients do you want?");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
