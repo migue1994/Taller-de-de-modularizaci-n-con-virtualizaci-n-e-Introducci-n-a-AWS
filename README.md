@@ -45,3 +45,21 @@ If you wnat to execute the local webserver.
 ## License
 
 [LICENSE.txt](LICENSE.txt)
+
+## CircleCi Status Badge
+
+[![CircleCI](https://circleci.com/gh/migue1994/Taller-de-de-modularizaci-n-con-virtualizaci-n-e-Introducci-n-a-AWS.svg?style=svg)](https://circleci.com/gh/migue1994/Taller-de-de-modularizaci-n-con-virtualizaci-n-e-Introducci-n-a-AWS)
+
+## Architecture
+
+### Software model
+
+[Software model]()
+
+### Deployment model
+
+[Deploy model]()
+
+### AWS Architecture
+
+[Client model]()
