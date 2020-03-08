@@ -3,6 +3,7 @@ package edu.escuelaing.arem.Cliente;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -10,6 +11,7 @@ import java.util.concurrent.Executors;
 public class CustomerMain {
     /**
      * Main method
+     * 
      * @param args no args
      */
     public static void main(String[] args) {
@@ -21,18 +23,28 @@ public class CustomerMain {
 
     /**
      * Make multiple request, depending on the number of threads entered
-     * @param numThreads Number of threads needed for the operation
+     * 
+     * @param numThreads   Number of threads needed for the operation
      * @param numCustomers Number of customers needed from the operation
      */
     private static void executeCustomers(int numThreads, int numCustomers) {
         ExecutorService pool = Executors.newFixedThreadPool(numThreads);
         String url = "https://cliente-servicio.herokuapp.com/";
-        String[] resources = {"Example1.html","index.html","JsExample.js","paisaje1.jpg","paisaje2.jpg"};
-        for (int i = 0; i < numCustomers; i++){
+        String[] resources = { "Example1.html", "index.html", "JsExample.js", "paisaje1.jpg", "paisaje2.jpg" };
+        ArrayList<CustomerThread> threads = new ArrayList<>();
+        for (int i = 0; i < numCustomers; i++) {
             String resource = getResource(resources);
-            CustomerThread ct = new CustomerThread(url + resource);
-            pool.execute(ct);
+            threads.add(new CustomerThread(url + resource));
         }
+        threads.forEach(t -> t.start());
+        threads.forEach(t -> {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
     }
 
     /**
