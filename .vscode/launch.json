@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - CustomerMain",
+            "request": "launch",
+            "mainClass": "edu.escuelaing.arem.Cliente.CustomerMain",
+            "projectName": "NamesNetworkClientService"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - HttpServer",
             "request": "launch",
             "mainClass": "edu.escuelaing.arem.servidorweb.HttpServer",

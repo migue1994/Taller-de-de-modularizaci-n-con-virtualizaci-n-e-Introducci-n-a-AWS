@@ -26,7 +26,7 @@ public class CustomerMain {
      */
     private static void executeCustomers(int numThreads, int numCustomers) {
         ExecutorService pool = Executors.newFixedThreadPool(numThreads);
-        String url = "http://localhost:35000/";
+        String url = "https://cliente-servicio.herokuapp.com/";
         String[] resources = {"Example1.html","index.html","JsExample.js","paisaje1.jpg","paisaje2.jpg"};
         for (int i = 0; i < numCustomers; i++){
             String resource = getResource(resources);
