@@ -54,16 +54,16 @@ If you wnat to execute the local webserver.
 
 ### Software model
 
-[Software model](https://github.com/migue1994/Taller-de-de-modularizaci-n-con-virtualizaci-n-e-Introducci-n-a-AWS/blob/master/img/SoftwareModel.PNG)
+![Software model](https://github.com/migue1994/Taller-de-de-modularizaci-n-con-virtualizaci-n-e-Introducci-n-a-AWS/blob/master/img/SoftwareModel.PNG)
 
 ### Deployment model
 
-[Deploy model](https://github.com/migue1994/Taller-de-de-modularizaci-n-con-virtualizaci-n-e-Introducci-n-a-AWS/blob/master/img/DeploymentModel.PNG)
+![Deploy model](https://github.com/migue1994/Taller-de-de-modularizaci-n-con-virtualizaci-n-e-Introducci-n-a-AWS/blob/master/img/DeploymentModel.PNG)
 
 ### AWS Architecture
 
-[AWSArchitecture](https://github.com/migue1994/Taller-de-de-modularizaci-n-con-virtualizaci-n-e-Introducci-n-a-AWS/blob/master/img/AWSArchitecture.PNG)
+![AWSArchitecture](https://github.com/migue1994/Taller-de-de-modularizaci-n-con-virtualizaci-n-e-Introducci-n-a-AWS/blob/master/img/AWSArchitecture.PNG)
 
 ### CLient Model
 
-[Client model](https://github.com/migue1994/Taller-de-de-modularizaci-n-con-virtualizaci-n-e-Introducci-n-a-AWS/blob/master/img/ClientModel.PNG)
+![Client model](https://github.com/migue1994/Taller-de-de-modularizaci-n-con-virtualizaci-n-e-Introducci-n-a-AWS/blob/master/img/ClientModel.PNG)
