@@ -1,4 +1,4 @@
-package edu.eci.miguel;
+package edu.escuelaing.arem.Cliente;
 
 import java.io.*;
 import java.net.*;
